@@ -1,0 +1,49 @@
+---
+title: "R Markdown and Leaflet"
+author: "Yangtaoyuan"
+date: "2021/1/10"
+output:
+  pdf_document: default
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+The report is the first project of the develop data product, and it mainly use the leaflet to feature the map
+ 
+## load liabrary and map
+```{r}
+library(leaflet)
+my_map <- leaflet() %>% 
+  addTiles()
+my_map
+
+```
+
+## add markers
+Adopating the longitude and latitude to add markers and popo up text by popup argument.
+```{r}
+my_map <- my_map %>%
+  addMarkers(lat=22.9281, lng=113.2755, 
+             popup="XinYi Square")
+my_map
+```
+
+## Map clusters
+ the clusters allows users add many markers by addMarkers() function, you will find out individual marker if you zoom in each cluster. 
+```{r}
+df <- data.frame(lat = runif(500, min = 22.8281, max = 22.9281),
+                 lng = runif(500, min = 113.1755, max = 113.2755))
+df %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(clusterOptions = markerClusterOptions())
+```
+
+## Conclusion 
+ For more details about the leaflet package for R visit http://rstudio.github.io/leaflet/.
+ 
+ 
